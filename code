@@ -1,0 +1,43 @@
+<?php
+
+require_once("src/facebook.php");
+
+$appId='1462917680664dfd628';
+$secret='65b160jkjdfj155615a3659ee441b1eac2942d';
+
+$returnUrl='http://localhost/www/newOne/';
+
+$permission='manage_pages, publish_stream';
+$action_name = 'Action Link in the Footer of the Post';
+$facebook=new Facebook(array('appId'=>$appId  , 'secret'=>$secret));
+
+$fbUser=$facebook->getUser();
+
+if($fbUser)
+{
+    try{
+
+        $accessToken = $facebook->getAccessToken();
+         if (!empty( $accessToken )) {
+                 $attachment = array(
+                     'access_token' => $accessToken,
+                     'message' => $msg,
+                     'name' => $title,
+                     'link' => $returnUrl,
+                     'description' => $desc,
+                     'actions' => json_encode(array('name' => $action_name,'link' => $returnUrl))
+                  );$status = $facebook->api("/me/feed", "post", $attachment);
+         } else {
+                $status = 'No access token recieved';
+         }
+
+    }catch(FacebookApiException $er)
+    {
+        echo $er->getMessage();
+    }
+}else
+{
+    $loginUrl=$fb->getLoginUrl(array('scope'=>$permission ,'redirect-uri'=>$returnUrl));
+
+    echo '<a href="'.$loginUrl.'">Login</a>';
+}
