@@ -2,10 +2,10 @@
 
 require_once("src/facebook.php");
 
-$appId='1462917680664dfd628';
-$secret='65b160jkjdfj155615a3659ee441b1eac2942d';
+$appId='1462917680664dff628';
+$secret='5b160jkjdfj155615a3659ee441b1eac2942';
 
-$returnUrl='http://localhost/www/newOne/';
+$returnUrl='http://localhost/www/Quote/';
 
 $permission='manage_pages, publish_stream';
 $action_name = 'Action Link in the Footer of the Post';
